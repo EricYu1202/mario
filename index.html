@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+        body {background-image:url("asset/background2-13_zpslinjncm4.gif");}
+        #t  {font-style:normal;color:red;margin-left:auto; margin-right:auto; background-color:deepskyblue;}
+        #button  {width:100px;position: absolute; left:720px; color: orangered;font-weight:bold;}
+        @keyframes pinpon {
+  
+  0% {
+    left: 1200px;
+    top: 500px;
+    opacity:0;
+  }
+
+  50% {
+    left: 1200px;
+    top: 450px;
+    opacity:0.5;
+  }
+  
+  100% {
+    left: 1200px;
+    top: 100px;
+    opacity:1;
+  }
+}
+
+.box {
+  
+  position: absolute;
+  
+  animation-name: pinpon;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-delay: 1s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: 1000;
+  animation-fill-mode:backwards;
+}
+        @keyframes pinpon1 {
+  
+  0% {
+    left: 1000px;
+    top: 100px;
+    opacity:1;
+  }
+
+  50% {
+    left: 1000px;
+    top: 450px;
+    opacity:0.5;
+  }
+  
+  100% {
+    left: 1000px;
+    top: 500px;
+    opacity:0;
+    
+  }
+}
+        
+        .animate1{ 
+            
+  position: absolute;
+  animation-name: pinpon1;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-delay: 1s;
+  animation-direction: alternate-reverse;
+  animation-iteration-count: 1000;
+  animation-fill-mode:backwards;
+        }
+
+      </style>
+  </head>
+  <body>
+    <div id="gameDiv"></div>
+    <script src="phaser/phaser.min.js"></script>
+      <script src="js/table.js"></script>
+    <script src="js/main.js"></script>
+    
+      <button  id='button'>clear</button>
+      <br>
+      <table id='t'  style="border:8px #FFD382 groove;width:200px;" cellpadding="10" border='1'><table>
+      <div><img src="asset/enemy3.1.png" style='width:300px; height:300px' alt="turtle" class="box"><div>
+      <div><img src="asset/enemy1.1.png" style='width:200px; height:200px' alt="mushroom" class="animate1"><div>
+          <div style='position: absolute;top:70%;'><a href='report.pptx'>說明文件</a><div>
+      <div style='position: fixed;top:80%;'><img src="asset/enemy2.2.png" alt="turtle"><div>
+  </body>
+</html>
