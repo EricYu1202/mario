@@ -33,9 +33,9 @@ var main = {
       bgtile = game.add.tileSprite(0, 0, 800, 500, 'background');
       this.score = 0;
       this.scoreText = game.add.text(16, 16, '分數: 0',
-                                {fontSize: '25px', fill: '#000'});
+                                {fontSize: '25px', fill: '#000',fontfamily:'Microsoft JhengHei'});
       obj=game.add.text(16, 45, '生命:' +life,
-                                {fontSize: '25px', fill: '#000'});
+                                {fontSize: '25px', fill: '#000',fontfamily:'Microsoft JhengHei'});
       
       this.player = game.add.sprite(20, 15, 'logo');
       game.physics.arcade.enable(this.player);
