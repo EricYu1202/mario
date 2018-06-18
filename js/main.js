@@ -1,10 +1,11 @@
 var game = new Phaser.Game(800, 500, Phaser.AUTO, 'gameDiv');
 var bgtile;
 var cur, obj,money,nextEnemyAt,enemyDelay,localscore;
+var life =3;
 var datebefore;
 var startMsec;
 var first=0;
-var maxscore=0;
+var timeend;
 var main = {
     
 
@@ -20,6 +21,7 @@ var main = {
   },
 
   create: function() {
+      life =3;
      datebefore=new Date();
         startMsec = datebefore.getMilliseconds();
        
@@ -31,6 +33,8 @@ var main = {
       bgtile = game.add.tileSprite(0, 0, 800, 500, 'background');
       this.score = 0;
       this.scoreText = game.add.text(16, 16, '分數: 0',
+                                {fontSize: '25px', fill: '#000'});
+      obj=game.add.text(16, 45, '生命:' +life,
                                 {fontSize: '25px', fill: '#000'});
       
       this.player = game.add.sprite(20, 15, 'logo');
@@ -93,7 +97,7 @@ var main = {
       if (this.nextcoinAt<game.time.now && this.coin.countDead()>0) {
     this.nextcoinAt = game.time.now + this.coinDelay;
     var cash = this.coin.getFirstExists(false);
-    cash.reset(750, game.rnd.integerInRange(100, 400));
+    cash.reset(750, game.rnd.integerInRange(200, 450));
     game.physics.arcade.enable(cash);
     cash.body.velocity.x= -30;
   }
@@ -129,14 +133,25 @@ var main = {
   },
     hitmonster: function(player,monster){
     monster.kill();
-    if(this.score>maxscore){maxscore=this.score;}
-    this.score-=50;
-    this.scoreText.text='分數: ' + this.score;
-    var s=datebefore.getSeconds();
-    var m=datebefore.getMinutes();
-    var h=datebefore.getHours();
-    var t=h+'時'+m+'分'+s+'秒';
-    if(this.score<0){game.state.start('over');localStorage.setItem(t, maxscore);}
+    life-=1;
+        obj.kill();
+    obj=game.add.text(16, 45, '生命:'+life,
+                                {fontSize: '25px', fill: '#000'});
+    //var s=datebefore.getSeconds();
+    //var m=datebefore.getMinutes();
+    //var h=datebefore.getHours();
+    
+    //var t=h+'時'+m+'分'+s+'秒';
+    if(life==0){
+        console.log(new Date());
+        
+        timeend=new Date();
+        var s=(timeend-datebefore)/1000;
+        var t= s+'秒';
+        game.state.start('over');localStorage.setItem(t, this.score);
+       
+      
+               }
 }
 
     
