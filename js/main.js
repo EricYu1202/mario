@@ -15,7 +15,9 @@ var main = {
       game.load.image('monster', 'asset/enemy1.1.png');
       game.load.image('money', 'asset/money1.1.png',40,40);
       game.load.audio('bgmMusic', 'asset/Super Mario Bros. Soundtrack.mp3');
-      
+      game.load.audio('deathMusic', 'asset/death.mp3');
+	  game.load.audio('coinMusic', 'asset/coin.mp3');
+	  game.load.audio('jumpMusic', 'asset/jump.mp3');
       datebefore=new Date();
       startMsec = datebefore.getMilliseconds();
   },
@@ -26,8 +28,11 @@ var main = {
         startMsec = datebefore.getMilliseconds();
        
        this.bgmMusic = game.add.audio('bgmMusic');
+	   this.deathMusic = game.add.audio('deathMusic');
+	   this.coinMusic = game.add.audio('coinMusic');
+	   this.jumpMusic = game.add.audio('jumpMusic');
        this.bgmMusic.loop = true;
-       this.bgmMusic.play(); 
+       this.bgmMusic.play();
       
       game.physics.startSystem(Phaser.Physics.ARCADE);
       bgtile = game.add.tileSprite(0, 0, 800, 500, 'background');
@@ -121,6 +126,7 @@ var main = {
   if (cur.up.isDown &&
       (this.player.body.onFloor() || this.player.body.touching.down)) {
     this.player.body.velocity.y = -350;
+	this.jumpMusic.play();
   } 
       
   },
@@ -129,7 +135,9 @@ var main = {
     collectcoin: function(player, money) {
     money.kill(); 
     this.score += 10;
+	this.coinMusic.play();
     this.scoreText.text = '分數: ' + this.score; 
+	
   },
     hitmonster: function(player,monster){
     monster.kill();
@@ -144,12 +152,12 @@ var main = {
     //var t=h+'時'+m+'分'+s+'秒';
     if(life==0){
         console.log(new Date());
-        
+        this.deathMusic.play();
         timeend=new Date();
         var s=(timeend-datebefore)/1000;
         var t= s+'秒';
         game.state.start('over');localStorage.setItem(t, this.score);
-       
+        this.bgmMusic.stop();
       
                }
 }
@@ -171,7 +179,7 @@ var over={
        var style={
          font: '52px Monospace',
          fill: '#000000',
-         align: 'center'
+         align: 'center',
        }
        var text = game.add.text(game.width/2, game.height/2,
      '遊戲結束\n\n點擊重新開始', style);
